@@ -1,25 +1,34 @@
 ```mermaid
 flowchart TD
-    A([Басы]) --> B[/text = input()/]
-    B --> C[words = text.split()]
-    C --> D[best_word = ""<br/>best_count = 0]
-    D --> E[for word in words]
-    E --> F[different = ""]
-    F --> G[for symbol in word]
-    G --> H{symbol not in different?}
-    H -->|Иә| I[different += symbol]
+    A([Басы]) --> B["text = input()"]
+    B --> C["words = text.split()"]
+    C --> D["best_word = ''<br/>best_count = 0"]
+    D --> E{"word бар ма?"}
+
+    E -->|Иә| F["different = ''"]
+    F --> G{"symbol бар ма?"}
+
+    G -->|Иә| H{"symbol not in different?"}
+    H -->|Иә| I["different += symbol"]
     H -->|Жоқ| G
     I --> G
-    G --> J[count = len(different)]
-    J --> K{count > best_count?}
-    K -->|Иә| L[best_count = count<br/>best_word = word]
-    K -->|Жоқ| M{count == best_count<br/>and len(word) > len(best_word)?}
-    L --> E
-    M -->|Иә| N[best_word = word]
+
+    G -->|Жоқ| J["count = len(different)"]
+    J --> K{"count > best_count?"}
+
+    K -->|Иә| L["best_count = count<br/>best_word = word"]
+    K -->|Жоқ| M{"count == best_count?"}
+
+    M -->|Иә| N{"len(word) > len(best_word)?"}
     M -->|Жоқ| E
-    N --> E
-    E --> O[/print(best_word)<br/>print(best_count)/]
-    O --> P([Соңы])
+
+    N -->|Иә| O["best_word = word"]
+    N -->|Жоқ| E
+    O --> E
+    L --> E
+
+    E -->|Жоқ| P["print(best_word)<br/>print(best_count)"]
+    P --> Q([Соңы])
 ```
 
 
