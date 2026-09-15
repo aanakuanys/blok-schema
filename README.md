@@ -2,10 +2,11 @@
 graph TD
     Start([Бастау]) --> Init["a = [5, 2, 9, 9, 7, 3, 8, 7, 1] <br/> birinshi = None <br/> ekinshi = None <br/> ushinshi = None"]
     
-    Init --> Loop["for x in a"]
+    Init --> Loop["for x in a (элементті алу)"]
     
     Loop -- "Элемент бар" --> CheckDup{"x == birinshi or x == ekinshi or x == ushinshi?"}
-    CheckDup -- "Иә" --> Continue["continue"] --> Loop
+    
+    CheckDup -- "Иә" --> Continue["continue (аттап өту)"] --> Loop
     CheckDup -- "Жоқ" --> Check1{"birinshi is None or x > birinshi?"}
     
     Check1 -- "Иә" --> Up1["ushinshi = ekinshi <br/> ekinshi = birinshi <br/> birinshi = x"] --> Loop
@@ -17,8 +18,9 @@ graph TD
     Check3 -- "Иә" --> Up3["ushinshi = x"] --> Loop
     Check3 -- "Жоқ" --> Loop
     
-    Loop -- "Тізім бітті" --> CheckFinal{"ushinshi is not None?"}
-    CheckFinal -- "Иә" --> PrintYes[/print: Үшінші ең үлкен элемент, ushinshi/]
+    Loop -- "Тізім аяқталды" --> CheckFinal{"ushinshi is not None?"}
+    
+    CheckFinal -- "Иә" --> PrintYes[/print: Үшінші ең үлкен әртүрлі элемент, ushinshi/]
     CheckFinal -- "Жоқ" --> PrintNo[/print: Үш түрлі элемент жоқ/]
     
     PrintYes --> End([Соңы])
