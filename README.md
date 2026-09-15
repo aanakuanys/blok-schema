@@ -2,11 +2,11 @@
 graph TD
     Start([Бастау]) --> Init["a = [5, 2, 9, 9, 7, 3, 8, 7, 1] <br/> birinshi = None <br/> ekinshi = None <br/> ushinshi = None"]
     
-    Init --> Loop["for x in a (элементті алу)"]
+    Init --> Loop["for x in a"]
     
     Loop -- "Элемент бар" --> CheckDup{"x == birinshi or x == ekinshi or x == ushinshi?"}
     
-    CheckDup -- "Иә" --> Continue["continue (аттап өту)"] --> Loop
+    CheckDup -- "Иә" --> Continue["continue"] --> Loop
     CheckDup -- "Жоқ" --> Check1{"birinshi is None or x > birinshi?"}
     
     Check1 -- "Иә" --> Up1["ushinshi = ekinshi <br/> ekinshi = birinshi <br/> birinshi = x"] --> Loop
@@ -18,9 +18,9 @@ graph TD
     Check3 -- "Иә" --> Up3["ushinshi = x"] --> Loop
     Check3 -- "Жоқ" --> Loop
     
-    Loop -- "Тізім аяқталды" --> CheckFinal{"ushinshi is not None?"}
+    Loop -- "Цикл бітті" --> CheckFinal{"ushinshi is not None?"}
     
-    CheckFinal -- "Иә" --> PrintYes[/print: Үшінші ең үлкен әртүрлі элемент, ushinshi/]
+    CheckFinal -- "Иә" --> PrintYes[/print: ushinshi/]
     CheckFinal -- "Жоқ" --> PrintNo[/print: Үш түрлі элемент жоқ/]
     
     PrintYes --> End([Соңы])
@@ -28,53 +28,66 @@ graph TD
 ```
 
 
+
 ```mermaid
 graph TD
-    Start2([Бастау]) --> Input["text = input(...)"]
+    Start([Бастау]) --> Input["text = input()"]
+    
     Input --> Split["words = text.split()"]
-    Split --> Init2["best_word = '' <br/> best_count = 0"]
+    Split --> Init["best_word = '' <br/> best_count = 0"]
     
-    Init2 --> Loop2["for word in words"]
+    Init --> LoopWord["for word in words"]
     
-    Loop2 -- "Сөз бар" --> InitDiff["different = ''"]
+    LoopWord -- "Сөз бар" --> InitDiff["different = ''"]
     InitDiff --> LoopSym["for symbol in word"]
     
     LoopSym -- "Символ бар" --> CheckSym{"symbol not in different?"}
+    
     CheckSym -- "Иә" --> AddSym["different += symbol"] --> LoopSym
     CheckSym -- "Жоқ" --> LoopSym
     
     LoopSym -- "Символ бітті" --> Calc["count = len(different)"]
     
     Calc --> CheckCount{"count > best_count?"}
-    CheckCount -- "Иә" --> Upd1["best_count = count <br/> best_word = word"] --> Loop2
+    
+    CheckCount -- "Иә" --> Upd1["best_count = count <br/> best_word = word"] --> LoopWord
     CheckCount -- "Жоқ" --> CheckLen{"count == best_count and len(word) > len(best_word)?"}
     
-    CheckLen -- "Иә" --> Upd2["best_word = word"] --> Loop2
-    CheckLen -- "Жоқ" --> Loop2
+    CheckLen -- "Иә" --> Upd2["best_word = word"] --> LoopWord
+    CheckLen -- "Жоқ" --> LoopWord
     
-    Loop2 -- "Сөз бітті" --> Print2[/print: Әртүрлі символдары ең көп сөз және саны/]
-    Print2 --> End2([Соңы])
+    LoopWord -- "Цикл бітті" --> Print1[/print: best_word/]
+    
+    Print1 --> Print2[/print: best_count/]
+    
+    Print2 --> End([Соңы])
 ```
 
 
 
 ```mermaid
-    graph TD
-    Start3([Бастау]) --> Input3["N мен M енгізу және A матрицасын жасау"]
+   graph TD
+    Start([Бастау]) --> Input["N = int(...) <br/> M = int(...) <br/> A = []"]
     
-    Input3 --> Transpose["AT = матрицаны транспонирлеу"]
+    Input --> LoopN["for i in range(N)"]
+    LoopN -- "Жол бар" --> LoopM["for j in range(M)"]
+    LoopM -- "Элемент бар" --> ReadX["x = int(...) <br/> row.append(x)"] --> LoopM
     
-    Transpose --> PrintA["Бастапқы матрицаны шығару"]
-    PrintA --> PrintAT["Транспонирленген матрицаны шығару"]
+    LoopM -- "Жол бітті" --> AppA["A.append(row)"] --> LoopN
+    
+    LoopN -- "Матрица бітті" --> Trans["AT = [] <br/> for j in range(M) <br/> for i in range(N) <br/> AT[j][i] = A[i][j]"]
+    
+    Trans --> PrintA[/print: A/]
+    PrintA --> PrintAT[/print: AT/]
     
     PrintAT --> CheckM{"M < N?"}
-    CheckM -- "Иә" --> Set1["diagonal_count = M"] --> DiagLoop
-    CheckM -- "Жоқ" --> Set2["diagonal_count = N"] --> DiagLoop
+    CheckM -- "Иә" --> SetM["diagonal_count = M"] --> DiagLoop
+    CheckM -- "Жоқ" --> SetN["diagonal_count = N"] --> DiagLoop
     
     DiagLoop["for i in range(diagonal_count)"] -- "Элемент бар" --> CheckEq{"A[i][i] == AT[i][i]?"}
     
     CheckEq -- "Иә" --> PrintEq[/print: тең/] --> DiagLoop
     CheckEq -- "Жоқ" --> PrintNotEq[/print: тең емес/] --> DiagLoop
     
-    DiagLoop -- "Аяқталды" --> End3([Соңы])
+    DiagLoop -- "Цикл бітті" --> End([Соңы])
 ```
