@@ -1,32 +1,26 @@
 ```mermaid
-graph TD
-    Start([Бастау]) --> Init["a = [5, 2, 9, 9, 7, 3, 8, 7, 1] <br/> birinshi = None <br/> ekinshi = None <br/> ushinshi = None"]
-    
-    Init --> Loop["for x in a"]
-    
-    Loop -- "Элемент бар" --> CheckDup{"x == birinshi or x == ekinshi or x == ushinshi?"}
-    
-    CheckDup -- "Иә" --> Continue["continue"] --> Loop
-    CheckDup -- "Жоқ" --> Check1{"birinshi is None or x > birinshi?"}
-    
-    Check1 -- "Иә" --> Up1["ushinshi = ekinshi <br/> ekinshi = birinshi <br/> birinshi = x"] --> Loop
-    Check1 -- "Жоқ" --> Check2{"ekinshi is None or x > ekinshi?"}
-    
-    Check2 -- "Иә" --> Up2["ushinshi = ekinshi <br/> ekinshi = x"] --> Loop
-    Check2 -- "Жоқ" --> Check3{"ushinshi is None or x > ushinshi?"}
-    
-    Check3 -- "Иә" --> Up3["ushinshi = x"] --> Loop
-    Check3 -- "Жоқ" --> Loop
-    
-    Loop -- "Цикл бітті" --> CheckFinal{"ushinshi is not None?"}
-    
-    CheckFinal -- "Иә" --> PrintYes[/print: ushinshi/]
-    CheckFinal -- "Жоқ" --> PrintNo[/print: Үш түрлі элемент жоқ/]
-    
-    PrintYes --> End([Соңы])
-    PrintNo --> End([Соңы])
+flowchart TD
+    A([Басы]) --> B[/text = input()/]
+    B --> C[words = text.split()]
+    C --> D[best_word = ""<br/>best_count = 0]
+    D --> E[for word in words]
+    E --> F[different = ""]
+    F --> G[for symbol in word]
+    G --> H{symbol not in different?}
+    H -->|Иә| I[different += symbol]
+    H -->|Жоқ| G
+    I --> G
+    G --> J[count = len(different)]
+    J --> K{count > best_count?}
+    K -->|Иә| L[best_count = count<br/>best_word = word]
+    K -->|Жоқ| M{count == best_count<br/>and len(word) > len(best_word)?}
+    L --> E
+    M -->|Иә| N[best_word = word]
+    M -->|Жоқ| E
+    N --> E
+    E --> O[/print(best_word)<br/>print(best_count)/]
+    O --> P([Соңы])
 ```
-
 
 
 ```mermaid
