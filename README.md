@@ -26,7 +26,7 @@ graph TD
 ```
 
 
-
+```mermaid
 graph TD
     Start2([Бастау]) --> Input["text = input(...)"]
     Input --> Split["words = text.split()"]
@@ -52,9 +52,11 @@ graph TD
     
     Loop2 -- "Сөз бітті" --> Print2[/print: Әртүрлі символдары ең көп сөз және саны/]
     Print2 --> End2([Соңы])
+```
 
 
 
+```mermaid
     graph TD
     Start3([Бастау]) --> Input3["N мен M енгізу және A матрицасын жасау"]
     
@@ -73,3 +75,4 @@ graph TD
     CheckEq -- "Жоқ" --> PrintNotEq[/print: тең емес/] --> DiagLoop
     
     DiagLoop -- "Аяқталды" --> End3([Соңы])
+```
